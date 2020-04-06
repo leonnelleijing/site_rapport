@@ -35,5 +35,5 @@ function nomAdmin($cl,$id){
     $query="SELECT nomDirecteur FROM directeur WHERE idDirecteur=$id ";
     $result=mysqli_query($cl,$query);
     $row= mysqli_fetch_array($result);
-    echo $row['nomDirecteur'];
+    return $row['nomDirecteur'];
 }
