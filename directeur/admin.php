@@ -26,7 +26,20 @@
       				<button class="btn btn-outline-info my-2 my-sm-0" type="submit">Chercher</button>
     			</form>
    				<li class="nav-item">
-        			<div class="nav-link mx-4"><img src="../img/personnage.png" class="img-thumbnail personnage"> Admin</div>
+        			<div class="nav-link mx-4"><img src="../img/personnage.png" class="img-thumbnail personnage"> 
+                                    
+                                    <?php
+                                    // affihcer le nom de login
+                                        
+                                        $query_str = $_SERVER['QUERY_STRING'];
+                                        parse_str($query_str);
+                                        
+                                        require_once '../functions.php';
+                                        $cl=connectLogin(); 
+                                        nomAdmin($cl,$id);
+                                        session_start();
+                                    ?>
+                                </div>
       			</li>
       			<li class="nav-item">
         			<a class="nav-link mx-4" href="#">Déconnexion <span class="oi oi-power-standby"></span></a>
