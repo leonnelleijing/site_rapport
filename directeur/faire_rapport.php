@@ -30,26 +30,32 @@
 							<h5> Créer un rapport</h5>
 						</div>
 						<div class="card-body">
-							<form>
+							<form id="crerRapport">
 								<div class="form-group">
-								    <label for="TypeRapport">Type rapport</label>
-								    <select class="form-control" id="TypeRapport">
-								      <option>1</option>
-								      <option>2</option>
-								      <option>3</option>
-								      <option>4</option>
-								      <option>5</option>
+								    <label for="TypeRapport">Service</label>
+								    <select class="form-control" name="idService">
+								      <?php
+                                                                        require_once '../functions.php';
+                                                                        $cl=connectLogin();
+                                                                        $query='SELECT * FROM service';
+                                                                        $result= mysqli_query($cl, $query);
+                                                                        while($nuplet=mysqli_fetch_array($result)){
+                                                                            echo "<option value='$nuplet[idService]'>"
+                                                                                    . "$nuplet[nomService]"
+                                                                                    . "</option>";
+                                                                        }
+                                                                      ?>
 								    </select>
 								</div>
 								<div class="form-group">
-								    <label for="sujetRapport">Sujet</label>
-								    <input type="text" class="form-control" id="sujetRapport">
+								    <label for="nomRapport">Nom de rapport</label>
+								    <input type="text" class="form-control" name="nomRapport">
 								</div>
 								<div class="form-group">
 	    							<label for="dscpRapport">Description</label>
-	    							<textarea class="form-control" id="dscpRapport" rows="3"></textarea>
+	    							<textarea class="form-control" name="descripRapport" rows="3"></textarea>
 	  							</div>
-	  							<button type="submit" class="btn btn-info">Créer</button>
+	  							<button type="button" class="btn btn-info" id="btnRapport">Créer</button>
 							</form>
 						</div>
 					</div>
@@ -57,5 +63,7 @@
 			</div>
 		</div>
 	</div>
+
 </body>
+
 </html>

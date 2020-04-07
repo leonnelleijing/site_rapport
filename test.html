@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<p>
+		email:<input type="text" id="email">
+	</p>
+	<p>
+		mdp
+		<input type="password" id="mdp">
+	</p>
+	<button>Envoyer</button>
+
+
+
+</body>
+<script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+	$('button').click(function(){
+
+		var email = $('#email').val();
+		var mdp = $('#mdp').val();
+		$.ajax({
+		            type:'post',
+		            url:'verifier.php',
+		            data:{
+		                email:email ,
+		                mdp:mdp
+		            },
+		            success:function(res){
+
+		            	if (res.info===1){
+		            		alert("hello");
+		            	}
+		                
+		            }
+	        	})
+	});
+</script>
+</html>

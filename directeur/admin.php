@@ -24,12 +24,7 @@
                 $_SESSION['id']=$nom;
             } else {
                 header("Location: ../index.html");
-            }
-
-           
-            
-            
-            
+            }       
         ?>
     
     <!-- Sidebar et contenu-->
