@@ -50,7 +50,7 @@ function Navigation($nom){
 }
 
 
-function sidebar(){
+function sidebarDirecteur(){
     echo '<div class="col-md-2 bg-dark" id="sidebar">
                 <ul class="navbar-nav navbar-dark">
                     <li role="presentation" class="active">
@@ -76,3 +76,19 @@ function sidebar(){
         </div>';
 }
 
+function sidebarUtilisateur() {
+    echo '<!-- Sidebar -->
+			<div class="col-md-2 bg-dark" id="sidebar">
+                            <ul class="navbar-nav navbar-dark">
+                                <li role="presentation" class="active">
+                                    <a href="admin.html" class="active"><span class="oi oi-dashboard"></span>Table de bord</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="tous_rapports.html"><span class="oi oi-list"></span>Tous mes rapports</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="information.html"><span class="oi oi-monitor"></span>Informations</a></li>
+                                </li>
+                            </ul>	
+			</div>';
+}

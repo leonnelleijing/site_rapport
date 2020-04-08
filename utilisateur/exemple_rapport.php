@@ -63,7 +63,7 @@
 									<h4>Historiques</h4>
 								</div>
 								<div class="card-body">
-									<a class="btn btn-info">Historique</a>
+                                                                    <a class="btn btn-info" href="historique.html">Historique</a>
 								</div>
 							</div>
 							<!-- ajouter un KPI -->

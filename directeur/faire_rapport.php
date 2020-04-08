@@ -2,7 +2,7 @@
 <html>
 <!-- head -->
     <?php
-        include_once 'template.php';
+        include_once '../template.php';
         head();
     ?>
 <body>
@@ -19,7 +19,7 @@
 		<div class="row no-gutters">
 			<!-- Sidebar -->
                         <?php
-                            sidebar();
+                            sidebarDirecteur();
                         ?>
 			
 			<!-- Contanu à droit -->

@@ -2,7 +2,7 @@
 <html>
 <!-- head -->
     <?php
-        include_once 'template.php';
+        include_once '../template.php';
         head();
     ?>
 <body>
@@ -14,17 +14,18 @@
             parse_str($query_str);
             parse_str($query_str, $query_arr);
             session_start();
-            if(isset($_SESSION['id'])){
-                $nom=$_SESSION['id'];
-                Navigation($nom);
-            }elseif ($query_arr!=null) {
+            if ($query_arr!=null) {
                 $cl=connectLogin(); 
                 $nom= nomAdmin($cl,$id);
                 Navigation($nom);
-                $_SESSION['id']=$nom;
+                $_SESSION['id']=$id;
+                $_SESSION['nom']=$nom;
+            }elseif(isset($_SESSION['nom'])){
+                $nom=$_SESSION['nom'];
+                Navigation($nom);
             } else {
                 header("Location: ../index.html");
-            }       
+            }      
         ?>
     
     <!-- Sidebar et contenu-->
@@ -32,7 +33,7 @@
             <div class="row no-gutters">
             <!-- Sidebar -->
                     <?php
-                        sidebar();
+                        sidebarDirecteur();
                     ?>
             <!-- Contenu principal -->
                 <div class="col-md-10">

@@ -1,5 +1,5 @@
 <?php
-include_once 'template.php';
+include_once '../template.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,7 +18,8 @@ include_once 'template.php';
         <div class="row no-gutters">
                 <!-- Sidebar -->
                 <?php
-                    sidebar();
+                    sidebarUtilisateur();
+
                 ?>
 
                 <!-- Contenu à droit -->

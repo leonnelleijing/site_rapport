@@ -2,7 +2,7 @@
 <html>
 <!-- head -->
     <?php
-        include_once 'template.php';
+        include_once '../template.php';
         head();
     ?>
 <body>
@@ -20,7 +20,7 @@
 		<div class="row no-gutters">
                     <!-- Sidebar -->
                         <?php
-                            sidebar();
+                            sidebarUtilisateur();
                         ?>
                     <!-- Contenu principal -->
 			<div class="col-md-10">
