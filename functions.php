@@ -57,6 +57,9 @@ function sqlSelect($cl,$sql){
     if($result==false){
         die("Erreur sélection statuts : " . mysqli_error($cl));
     }
-    $row= mysqli_fetch_array($result);
-    return $row;   
+    $final=array();
+    while($row= mysqli_fetch_row($result)){
+        array_push($final,$row);
+    }
+    return $final;   
 }

@@ -11,10 +11,12 @@ function head(){
 	<link rel="stylesheet" href="../css/bootstrap.css">
 	<link rel="stylesheet" href="../css/open-iconic-bootstrap.css">
 	<link rel="stylesheet" href="../css/custom.css">
-	<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../js/validator.js"></script>
         <script type="text/javascript" src="../js/ajax.js"></script>
+        <script type="text/javascript" src="../js/rapport.js"></script>
+
 
         </head>';
 }
@@ -81,13 +83,13 @@ function sidebarUtilisateur() {
 			<div class="col-md-2 bg-dark" id="sidebar">
                             <ul class="navbar-nav navbar-dark">
                                 <li role="presentation" class="active">
-                                    <a href="admin.html" class="active"><span class="oi oi-dashboard"></span>Table de bord</a>
+                                    <a href="utilisateur.php" class="active"><span class="oi oi-dashboard"></span>Table de bord</a>
                                 </li>
                                 <li role="presentation">
-                                    <a href="tous_rapports.html"><span class="oi oi-list"></span>Tous mes rapports</a>
+                                    <a href="tous_rapports.php"><span class="oi oi-list"></span>Tous mes rapports</a>
                                 </li>
                                 <li role="presentation">
-                                    <a href="information.html"><span class="oi oi-monitor"></span>Informations</a></li>
+                                    <a href="information.php"><span class="oi oi-monitor"></span>Informations</a></li>
                                 </li>
                             </ul>	
 			</div>';

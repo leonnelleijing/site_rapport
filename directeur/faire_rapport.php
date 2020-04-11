@@ -10,8 +10,13 @@
         <?php
         // affihcer le nom de login
             session_start();
-            $nom=$_SESSION['id'];
-            Navigation($nom); 
+            if(isset($_SESSION['nom'])){
+                $nom=$_SESSION['nom'];
+                $id=$_SESSION['id'];
+                Navigation($nom);
+            } else {
+                header("Location: ../index.html");
+            }  
         ?>
 	
 	<!-- Section pincipale-->
@@ -34,8 +39,8 @@
 								<div class="form-group">
 								    <label for="TypeRapport">Service</label>
 								    <select class="form-control" name="idService">
-								      <?php
-                                                                        require_once '../functions.php';
+								      <?php 
+                                                                      require_once '../functions.php';
                                                                         $cl=connectLogin();
                                                                         $query='SELECT * FROM service';
                                                                         $result= mysqli_query($cl, $query);

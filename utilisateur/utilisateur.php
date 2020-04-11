@@ -14,8 +14,8 @@
             parse_str($query_str);
             parse_str($query_str, $query_arr);
             session_start();
+            $cl=connectLogin();      
             if ($query_arr!=null) {
-                $cl=connectLogin(); 
                 $nom= nomEm($cl,$id);
                 Navigation($nom);
                 $_SESSION['id']=$id;
@@ -29,7 +29,7 @@
             }    
         ?>
     
-    
+     <!-- Section pincipale-->
 	<div class="container-fluid">
 		<div class="row no-gutters">
                     <!-- Sidebar -->
@@ -57,9 +57,9 @@
                                                                     <?php
                                                                         // chercher le service où le login travaille
                                                                        $sql="SELECT idService FROM employee where idEm =$id";
-                                                                       $row= sqlSelect($cl, $sql);
-                                                                       $idService=$row['idService'];
-                                                                       
+                                                                       $resultat= sqlSelect($cl, $sql);
+                                                                       $idService=$resultat[0][0];
+                                                                       $_SESSION['idService']=$idService;
                                                                        //afficher tous les raports avec une état ouverte pour cette service 
                                                                        $sql="SELECT date(dateRapport)as dateCreation, idRapport,nomRapport,etatRapport "
                                                                                . "from rapport where idService=$idService and etatRapport ='ouvert'" ;
@@ -73,7 +73,7 @@
                                                                                 "<td>".$row['idRapport']."</td>".
                                                                                 "<td>".$row['nomRapport']."</td>".
                                                                                 "<td>".$row['etatRapport']."</td>".
-                                                                                "<td><a href='exemple_rapport.php'>...</a></td>".
+                                                                                "<td><a href='rapport.php' class='hrefRappport'>...</a></td>".
                                                                                 "</tr>";
                                                                         }     
  
@@ -98,21 +98,21 @@
 								</thead>
 								<tbody>
                                                                 <?php
-								   $sql="SELECT date(dateRapport)as dateCreation, idRapport,nomRapport,etatRapport "
+								    $sql="SELECT date(dateRapport)as dateCreation, idRapport,nomRapport,etatRapport "
                                                                                . "from rapport where idService=$idService and etatRapport ='à valider'" ;
-                                                                       $result= mysqli_query($cl, $sql);
-                                                                        if($result==false){
-                                                                            die("Erreur sélection statuts : " . mysqli_error($cl));
-                                                                        }
-                                                                        while($row= mysqli_fetch_array($result)){
-                                                                            echo "<tr>".
-                                                                                "<th scope='row'>".$row['dateCreation']."</th>".
-                                                                                "<td>".$row['idRapport']."</td>".
-                                                                                "<td>".$row['nomRapport']."</td>".
-                                                                                "<td>".$row['etatRapport']."</td>".
-                                                                                "<td><a href='exemple_rapport.html'>"."..."."</a></td>".
-                                                                                "</tr>";
-                                                                        }  
+                                                                    $result= mysqli_query($cl, $sql);
+                                                                     if($result==false){
+                                                                         die("Erreur sélection statuts : " . mysqli_error($cl));
+                                                                     }
+                                                                     while($row= mysqli_fetch_array($result)){
+                                                                         echo "<tr>".
+                                                                             "<th scope='row'>".$row['dateCreation']."</th>".
+                                                                             "<td>".$row['idRapport']."</td>".
+                                                                             "<td>".$row['nomRapport']."</td>".
+                                                                             "<td>".$row['etatRapport']."</td>".
+                                                                             "<td><a href='exemple_rapport.html'>"."..."."</a></td>".
+                                                                             "</tr>";
+                                                                     }  
                                                                  ?>
 							  	</tbody>
 							</table>
