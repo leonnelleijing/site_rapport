@@ -1,22 +1,37 @@
+<?php
+    include_once '../template.php';
+    require_once '../functions.php';
+    $ca= connectAnalyse();
+    $cl= connectLogin();
+    session_start();
+    
+    // get idRapport et le mettre dans la session
+
+    $url= getParamsUrl();
+    $nomRapport=$url['nomRapport'];
+    $idRapport=$url['idRapport'];
+    $_SESSION['idRapport']=$idRapport;
+    
+    //obtenir le idService où l'employee travaille  
+    $idService=$_SESSION['idService'];
+?>
 <!DOCTYPE html>
 <html>
 <!-- head -->
     <?php
-        include_once '../template.php';
         head();
     ?>
 <body>
     <!-- Navigation et bandeau-->
         <?php
         // affihcer le nom de login
-            session_start();
-            if(isset($_SESSION['nom'])){
-                $nom=$_SESSION['nom'];
-                $id=$_SESSION['id'];
+            if(isset($_SESSION['userNom'])){
+                $nom=$_SESSION['userNom'];
+                $id=$_SESSION['userId'];
                 Navigation($nom);
             } else {
                 header("Location: ../index.html");
-            }     
+            } 
         ?>
     
     <!-- Section pincipale-->
@@ -24,7 +39,7 @@
 		<div class="row no-gutters">
 			<!-- Sidebar -->
                         <?php
-                             sidebarUtilisateur();
+                            sidebarUtilisateur();
                         ?>
 
 			<div class="col-md-10">
@@ -50,19 +65,12 @@
 									<div class="form-group">
 									    <label for="NomPU">Nom de publication</label>
 									    <select class="form-control" name="CodePU">
-     
+                                                                                <option value='null'>-Tous les publications-</option>
                                                                               <?php
-                                                                              require_once '../functions.php';
-                                                                              $ca= connectAnalyse();
                                                                               $query="SELECT CodePU, NomPU FROM publication";
-                                                                              $result= mysqli_query($ca, $query);
-                                                                              if($result==false){
-                                                                              die("Erreur sélection statuts : " . mysqli_error($cl));
-                                                                              }
-                                                                              while ($row= mysqli_fetch_array($result)){
-                                                                                 echo"<option value='$row[CodePU]'>"
-                                                                                         . "$row[NomPU]"
-                                                                                         . "</option>";
+                                                                              $result= sqlSelect($ca, $query);
+                                                                              foreach ($result as $row) {
+                                                                                  echo"<option value='$row[0]'>$row[1]</option>";
                                                                               }
                                                                               ?>
 									    </select>
@@ -72,14 +80,12 @@
 									    <select class="form-control" name="idKPI">
                                                                                 <?php
                                                                                 $idService=$_SESSION['idService'];
-                                                                                $cl= connectLogin();
+                                                                                
                                                                                 $query="SELECT idKPI,nomKPI FROM kpi where idService=$idService";
-                                                                                $result= mysqli_query($cl, $query);
-                                                                                if($result==false){
-                                                                                    die("Erreur sélection statuts : " . mysqli_error($cl));
-                                                                                }
-                                                                                while ($row= mysqli_fetch_array($result)){
-                                                                                   echo"<option value='$row[idKPI]'>$row[nomKPI]</option>";
+                                                                                $result= sqlSelect($cl, $query);
+                                                                                foreach ($result as $row) {
+                                                                                    echo"<option value='$row[0]'>$row[1]</option>";
+
                                                                                 }
                                                                                 ?>
                                                                                 
@@ -100,10 +106,9 @@
 								<div class="card-header">
 									<div class="input-group">
                                                                                 <?php
-                                                                                    $query_str = $_SERVER['QUERY_STRING'];
-                                                                                    parse_str($query_str);
-                                                                                    parse_str($query_str, $query_arr);
-                                                                                    echo"<input type='text' id='nomRapport' name='nomRapport' class='form-control' value='$nomRapport' aria-label='Analyse de vente' aria-describedby='btnModifier'>";
+                                                                                    echo "<input type='text' id='nomRapport' name='nomRapport' class='form-control'"
+                                                                                            ."value='$nomRapport'"
+                                                                                            ."aria-label='Analyse de vente' aria-describedby='btnModifier'>";
                                                                                 ?>
 										<div class="input-group-append">
 											<button class="btn btn-outline-info" id="btnModifier">Modifier</button>
@@ -112,12 +117,30 @@
 								</div>
 								<div class="card-body">
 									<div class="container" id="analyseBody">
-										
+                                                                            <?php
+                                                                                $sql="SELECT idContenu,nomContenu,tableAnalyse,synthese FROM contenu where idRapport=$idRapport";
+                                                                                $result= sqlSelect($cl, $sql);
+                                                                                foreach ($result as $row) {
+                                                                                    echo "<div class='my-4' id=$row[0]>".
+                                                                                        "<h4> $row[1]</h4>".
+                                                                                        $row[2].
+                                                                                        '<div class="form-group">'.
+                                                                                                '<label for="commentaireRapport">'.
+                                                                                                '<small>Synthèse</small></label>'.
+                                                                                                '<textarea class="form-control" id="commentaireRapport" rows="3">'.$row[3].'</textarea>'.
+                                                                                        '</div>'.
+                                                                                        '<button class="btn btn-warning" id="btn" onclick="removeAll(this)">Supprimer</button><hr>'.
+                                                                                        '</div>';
+                                                                                }
+                                                                            ?>
 	  								</div>
 	  								<div class="float-right" id="soumettreAnalyse">
-                                                                            <button class="btn btn-info" type="button">Soumettre</button>
+                                                                            <button class="btn btn-info" type="button" id="soumettre">Soumettre</button>
 	  								</div>
 								</div>
+                                                            <?php
+                                                              modal();
+                                                            ?>
 							</div>
 						</div>
 					</div>

@@ -21,6 +21,22 @@ function head(){
         </head>';
 }
 
+function headHtml(){
+    return '<head lang="en">
+	<meta charset="utd-8">
+	<link rel="stylesheet" href="../css/bootstrap.css">
+	<link rel="stylesheet" href="../css/open-iconic-bootstrap.css">
+	<link rel="stylesheet" href="../css/custom.css">
+	<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/validator.js"></script>
+        <script type="text/javascript" src="../js/ajax.js"></script>
+        <script type="text/javascript" src="../js/rapport.js"></script>
+
+
+        </head>';
+}
+
 function Navigation($nom){
     echo'<div id="main">
 		<nav class="navbar navbar-expand-lg navbar-light">
@@ -43,7 +59,7 @@ function Navigation($nom){
     echo'
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link mx-4" href="#">Déconnexion <span class="oi oi-power-standby"></span></a>
+                                    <a class="nav-link mx-4" href="deconnection.php">Déconnexion <span class="oi oi-power-standby"></span></a>
                                 </li>
                             </ul>
 			</div>
@@ -93,4 +109,44 @@ function sidebarUtilisateur() {
                                 </li>
                             </ul>	
 			</div>';
+}
+
+
+function commentaire(){
+    echo '<div class="form-envoie-msg my-4">
+            <form method="post" action="../nouvelle_historique.php">
+                <div class="row">
+                    <div class="col-8 offset-2">
+                        <input name="commentaire" class="form-control" required>
+                        <div class="invalid-feedback">
+                        Le message ne peut pas être null
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <button type="submit" class="btn btn-success">Envoyer</button> 
+                    </div>
+                </div>
+            </form>
+        </div>';
+}
+
+function modal(){
+    echo '<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                ...
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+              </div>
+            </div>
+          </div>
+        </div>';
 }

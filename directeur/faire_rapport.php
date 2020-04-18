@@ -1,22 +1,26 @@
+<?php
+    include_once '../template.php';
+    require_once '../functions.php';
+    $cl= connectLogin();
+    session_start();
+?>
 <!DOCTYPE html>
 <html>
 <!-- head -->
     <?php
-        include_once '../template.php';
         head();
     ?>
 <body>
      <!-- Navigation et bandeau-->
         <?php
         // affihcer le nom de login
-            session_start();
-            if(isset($_SESSION['nom'])){
-                $nom=$_SESSION['nom'];
-                $id=$_SESSION['id'];
-                Navigation($nom);
+           if(isset($_SESSION['userNom'])){
+                $userNom=$_SESSION['userNom'];
+                $userId=$_SESSION['userId'];
+                Navigation($userNom);
             } else {
                 header("Location: ../index.html");
-            }  
+            } 
         ?>
 	
 	<!-- Section pincipale-->
@@ -40,8 +44,6 @@
 								    <label for="TypeRapport">Service</label>
 								    <select class="form-control" name="idService">
 								      <?php 
-                                                                      require_once '../functions.php';
-                                                                        $cl=connectLogin();
                                                                         $query='SELECT * FROM service';
                                                                         $result= mysqli_query($cl, $query);
                                                                         while($nuplet=mysqli_fetch_array($result)){
@@ -64,6 +66,9 @@
 							</form>
 						</div>
 					</div>
+                                    <?php
+                                       modal();
+                                    ?>
 				</div>
 			</div>
 		</div>

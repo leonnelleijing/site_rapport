@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>utilisateur/rapport.php</url>
+            <bookmark id="1">
+                <name/>
+                <line>28</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/wamp64/www/siteweb/functions.php</file>
+            <file>file:/D:/wamp64/www/siteweb/directeur/historique.php</file>
+            <file>file:/D:/wamp64/www/siteweb/nouvelle_historique.php</file>
+            <file>file:/D:/wamp64/www/siteweb/index.html</file>
+            <file>file:/D:/wamp64/www/siteweb/directeur/rapport.php</file>
             <file>file:/D:/wamp64/www/siteweb/utilisateur/rapport.php</file>
-            <file>file:/D:/wamp64/www/siteweb/directeur/faire_rapport.php</file>
-            <file>file:/D:/wamp64/www/siteweb/directeur/creer_rapport.php</file>
+            <file>file:/D:/wamp64/www/siteweb/utilisateur/mettre_analyse_rapport.php</file>
             <file>file:/D:/wamp64/www/siteweb/utilisateur/analyse_rapport.php</file>
-            <file>file:/D:/wamp64/www/siteweb/utilisateur/utilisateur.php</file>
+            <file>file:/D:/wamp64/www/siteweb/directeur/creer_rapport.php</file>
+            <file>file:/D:/wamp64/www/siteweb/directeur/admin.php</file>
         </group>
     </open-files>
 </project-private>

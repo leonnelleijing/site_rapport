@@ -1,9 +1,9 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/*
+   obtenir d'abord id de KPI et le code de publication que l'on voudrais analyser 
+   chercher des données dans la base de données de Lagardère_active 
+   retourner des donnnées avec un format json 
  */
 require_once '../functions.php';
 $ca= connectAnalyse();
@@ -14,7 +14,14 @@ $idKPI=$_POST['idKPI'];
 $sql="SELECT sqlKPI,contrainteKPI FROM kpi where idKPI=$idKPI";
 $result = sqlSelect($cl, $sql);
 $row=$result[0];
-$newSql=$row[0].' '.$row[1].$CodePu;
+
+// si codePU est null, ca veut dire que l'utilisateur n'a pas mis de contriante sur le code d'une publcation 
+if($CodePu=='null'){
+  $newSql=$row[0]; 
+} else {
+  $newSql=$row[0].' '.$row[1].$CodePu;  
+}
+
 $success['sql']=$newSql;
 $resultatAnalyse= sqlSelect($ca, $newSql);
 $success['resultat']=$resultatAnalyse;

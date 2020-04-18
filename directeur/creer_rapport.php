@@ -1,20 +1,20 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 require_once '../functions.php';
-$cx=connectLogin();
+$cl=connectLogin();
 
 $idService=$_POST['idService'];
 $nomRapport=$_POST['nomRapport'];
 $descripRapport=$_POST['descripRapport'];
 
-$query="INSERT INTO rapport(nomRapport,descripRapport, idService) VALUES ('$nomRapport','$descripRapport',$idService)";
-$result= mysqli_query($cx, $query);
+$success = array('request' =>'Créer un Rapport');
 
-$success = array('msg' =>'ok');
-$success['etat']=$result;
+$query="INSERT INTO rapport(nomRapport,descripRapport, idService) VALUES (\"$nomRapport\",\"$descripRapport\",$idService)";
+$result= mysqli_query($cl, $query) or die("Choix base impossible : " . mysqli_error($cl));
+if($result){
+    $success['resultat']='Votre rapport est bién créé';
+} else {
+    $success['resultat']='Votre création du rapport n\'a pas réussi, veuillez réessayer';
+}
+
 echo json_encode($success);

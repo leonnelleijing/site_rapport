@@ -50,6 +50,99 @@ function nomEm($cl,$id){
     return $row['nomEm'];
 }
 
+//determiner si une personne est directeur 
+function isDirecteur ($cl,$userId){
+    $sql="SELECT idDirecteur FROM login WHERE userId=$userId";
+    $row= sqlSelect($cl, $sql);
+    if($row[0][0]==null){
+        return false;
+    } else {
+        return true;
+    }
+}
+
+//source d'image d'un emloyer
+function srcImg($cl, $idUser,$type){
+    if($type){
+        $sql="SELECT imgDirecteur FROM directeur WHERE idDirecteur=$idUser";
+        $row= sqlSelect($cl, $sql);
+        return $row[0][0];
+    }else{
+        $sql="SELECT imgEm FROM employee WHERE idEm=$idUser";
+        $row= sqlSelect($cl, $sql);
+        return $row[0][0];
+    }
+}
+
+//afficher un tableau conteannt des informations sur des rapports
+function tableRapport($cl,$sql){
+    echo'<table class="table table-hover">
+            <thead class="thead-light">
+                <tr>
+                  <th scope="col">Date de creation</th>
+                  <th scope="col">Numéro</th>
+                  <th scope="col">Titre</th>
+                  <th scope="col">Etat</th>
+                  <th scope="col">Voir plus</th>
+                </tr>
+            </thead>
+            <tbody>';
+     $result= sqlSelect($cl, $sql);
+    foreach ($result as $row) {
+        echo "<tr>".
+             "<th scope='row'>".$row[0]."</th>".
+             "<td class='idRapport'>".$row[1]."</td>".
+             "<td class='nomRapport'>".$row[2]."</td>".
+             "<td>".$row[3]."</td>";
+        if($row[4]==null){
+            echo "<td><a href='rapport.php' class='hrefRappport'>"."..."."</a></td>".
+                 "</tr>";
+        }else{
+            $href='../rapport_valide/'.$row[4];
+            echo "<td><a href='$href'>"."..."."</a></td>";
+        }
+    }
+    echo    '</tbody>
+        </table>';
+}
+
+
+
+//afficher un tableau contenant des informations sur des rapports
+function tableRapportAdmin($cl,$sql,$title){
+    echo '<div class="card">
+            <div class="card-body">';
+    echo "<h3 class='card-title'>$title</h3>";
+    echo '<table class="table table-hover">
+            <thead class="thead-light">
+                <tr>
+                  <th scope="col">Date de creation</th>
+                  <th scope="col">Service</th>
+                  <th scope="col">Numéro</th>
+                  <th scope="col">Titre</th>
+                  <th scope="col">Etat</th>
+                  <th scope="col">Voir plus</th>
+                </tr>
+            </thead>
+            <tbody>';
+    $result= sqlSelect($cl, $sql);
+    foreach ($result as $row) {
+        echo "<tr>".
+             "<th scope='row'>".$row[0]."</th>".
+             "<td>".$row[1]."</td>".
+             "<td  class='idRapport'>".$row[2]."</td>".
+             "<td class='nomRapport'>".$row[3]."</td>".
+             "<td>".$row[4]."</td>".
+             "<td><a href='rapport.php' class='hrefRappport'>...</a></td>".
+             "</tr>";
+    }  
+    echo    '</tbody>
+        </table>
+       </div>
+     </div>';
+}
+
+
 
 // function sql select des donnés 
 function sqlSelect($cl,$sql){
@@ -62,4 +155,11 @@ function sqlSelect($cl,$sql){
         array_push($final,$row);
     }
     return $final;   
+}
+
+function getParamsUrl(){
+     $query_str = $_SERVER['QUERY_STRING'];
+     parse_str($query_str);
+     parse_str($query_str, $query_arr);
+     return $query_arr;
 }

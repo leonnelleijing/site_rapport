@@ -1,32 +1,42 @@
+<?php
+include_once '../template.php';
+require_once '../functions.php';
+session_start();
+$cl=connectLogin();  
+
+?>
+
 <!DOCTYPE html>
 <html>
 <!-- head -->
     <?php
-        include_once '../template.php';
+        
         head();
     ?>
 <body>
     <!-- Navigation et bandeau-->
         <?php
         // affihcer le nom de login
-            require_once '../functions.php';
-            $query_str = $_SERVER['QUERY_STRING'];
-            parse_str($query_str);
-            parse_str($query_str, $query_arr);
-            session_start();
-            $cl=connectLogin();      
-            if ($query_arr!=null) {
-                $nom= nomEm($cl,$id);
-                Navigation($nom);
-                $_SESSION['id']=$id;
-                $_SESSION['nom']=$nom;
-            }elseif(isset($_SESSION['nom'])){
-                $nom=$_SESSION['nom'];
-                $id=$_SESSION['id'];
-                Navigation($nom);
+            $url= getParamsUrl();
+            if ($url!=null) {
+                $userId= $url['id'];
+                $userNom= nomEm($cl,$userId);
+                Navigation($userNom);
+                $_SESSION['userId']=$userId;
+                $_SESSION['userNom']=$userNom;
+            }elseif(isset($_SESSION['userNom'])){
+                $userNom=$_SESSION['userNom'];
+                $userId=$_SESSION['userId'];
+                Navigation($userNom);
             } else {
                 header("Location: ../index.html");
             }    
+            
+        // chercher le service où le login travaille
+            $sql="SELECT idService FROM employee where idEm =$userId";
+            $resultat= sqlSelect($cl, $sql);
+            $idService=$resultat[0][0];
+            $_SESSION['idService']=$idService;
         ?>
     
      <!-- Section pincipale-->
@@ -43,79 +53,31 @@
 						<!-- les nouveaux rapports à faire -->
 						<div class="card-body">
 							<h3 class="card-title">Les nouveaux rapports</h3>
-							<table class="table table-hover">
-							  	<thead class="thead-light">
-								    <tr>
-								      <th scope="col">Date de creation</th>
-								      <th scope="col">Numéro</th>
-								      <th scope="col">Titre</th>
-								      <th scope="col">Etat</th>
-								      <th scope="col">Voir plus</th>
-								    </tr>
-								</thead>
-								<tbody>
-                                                                    <?php
-                                                                        // chercher le service où le login travaille
-                                                                       $sql="SELECT idService FROM employee where idEm =$id";
-                                                                       $resultat= sqlSelect($cl, $sql);
-                                                                       $idService=$resultat[0][0];
-                                                                       $_SESSION['idService']=$idService;
-                                                                       //afficher tous les raports avec une état ouverte pour cette service 
-                                                                       $sql="SELECT date(dateRapport)as dateCreation, idRapport,nomRapport,etatRapport "
-                                                                               . "from rapport where idService=$idService and etatRapport ='ouvert'" ;
-                                                                       $result= mysqli_query($cl, $sql);
-                                                                        if($result==false){
-                                                                            die("Erreur sélection statuts : " . mysqli_error($cl));
-                                                                        }
-                                                                        while($row= mysqli_fetch_array($result)){
-                                                                            echo "<tr>".
-                                                                                "<th scope='row'>".$row['dateCreation']."</th>".
-                                                                                "<td>".$row['idRapport']."</td>".
-                                                                                "<td>".$row['nomRapport']."</td>".
-                                                                                "<td>".$row['etatRapport']."</td>".
-                                                                                "<td><a href='rapport.php' class='hrefRappport'>...</a></td>".
-                                                                                "</tr>";
-                                                                        }     
- 
-                                                                    ?>
-								    
-							  	</tbody>
-							</table>
+							<?php
+                                                            //afficher tous les raports avec un état ouvert pour cette service 
+                                                            $sql="SELECT date(dateRapport)as dateCreation, idRapport,nomRapport,etatRapport,urlRapport "
+                                                                    . "from rapport where idService=$idService and etatRapport ='ouvert'" ;
+                                                            tableRapport($cl, $sql);
+                                                            
+                                                        ?>
 						</div>
-
+                                                <!-- les rapports à rédiger -->
+						<div class="card-body">
+							<h3 class="card-title">Les rapports à rééditer</h3>
+							<?php
+                                                            $sql="SELECT date(dateRapport)as dateCreation, idRapport,nomRapport,etatRapport,urlRapport "
+                                                                               . "from rapport where idService=$idService and etatRapport ='edit'" ;
+                                                            tableRapport($cl, $sql);
+                                                        ?>
+						</div>                                              
 						<!-- les rapports en attende de validation -->
 						<div class="card-body">
 							<h3 class="card-title">Les rapports en attente de valideation</h3>
-							<table class="table table-hover">
-							  	<thead class="thead-light">
-								    <tr>
-                                                                      <th scope="col">Date de creation</th>
-								      <th scope="col">Numéro</th>
-								      <th scope="col">Titre</th>
-								      <th scope="col">Etat</th>
-								      <th scope="col">Voir plus</th>
-								    </tr>
-								</thead>
-								<tbody>
-                                                                <?php
-								    $sql="SELECT date(dateRapport)as dateCreation, idRapport,nomRapport,etatRapport "
-                                                                               . "from rapport where idService=$idService and etatRapport ='à valider'" ;
-                                                                    $result= mysqli_query($cl, $sql);
-                                                                     if($result==false){
-                                                                         die("Erreur sélection statuts : " . mysqli_error($cl));
-                                                                     }
-                                                                     while($row= mysqli_fetch_array($result)){
-                                                                         echo "<tr>".
-                                                                             "<th scope='row'>".$row['dateCreation']."</th>".
-                                                                             "<td>".$row['idRapport']."</td>".
-                                                                             "<td>".$row['nomRapport']."</td>".
-                                                                             "<td>".$row['etatRapport']."</td>".
-                                                                             "<td><a href='exemple_rapport.html'>"."..."."</a></td>".
-                                                                             "</tr>";
-                                                                     }  
-                                                                 ?>
-							  	</tbody>
-							</table>
+							<?php
+                                                            $sql="SELECT date(dateRapport)as dateCreation, idRapport,nomRapport,etatRapport,urlRapport "
+                                                                               . "from rapport where idService=$idService and etatRapport ='soumis'" ;
+                                                            tableRapport($cl, $sql);
+                                                        ?>
 						</div>
 					</div>
 				</div>
