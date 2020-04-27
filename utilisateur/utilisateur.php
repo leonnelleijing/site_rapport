@@ -9,34 +9,24 @@ $cl=connectLogin();
 <!DOCTYPE html>
 <html>
 <!-- head -->
-    <?php
-        
+    <?php    
         head();
     ?>
 <body>
     <!-- Navigation et bandeau-->
         <?php
         // affihcer le nom de login
-            $url= getParamsUrl();
-            if ($url!=null) {
-                $userId= $url['id'];
-                $userNom= nomEm($cl,$userId);
-                Navigation($userNom);
-                $_SESSION['userId']=$userId;
-                $_SESSION['userNom']=$userNom;
-            }elseif(isset($_SESSION['userNom'])){
+            if(isset($_SESSION['userNom'])){
                 $userNom=$_SESSION['userNom'];
                 $userId=$_SESSION['userId'];
-                Navigation($userNom);
-            } else {
-                header("Location: ../index.html");
+                $idService=$_SESSION['idService'];
+                $srcImg=$_SESSION['srcImg'];
+                Navigation($userNom,$srcImg);
+            }elseif (isset ($_SESSION['idService'])) {
+                 header("Location: ../complete_info.php");
+            }else {
+                 header("Location: ../index.html");
             }    
-            
-        // chercher le service où le login travaille
-            $sql="SELECT idService FROM employee where idEm =$userId";
-            $resultat= sqlSelect($cl, $sql);
-            $idService=$resultat[0][0];
-            $_SESSION['idService']=$idService;
         ?>
     
      <!-- Section pincipale-->

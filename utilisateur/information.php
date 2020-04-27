@@ -38,26 +38,9 @@
 
 
 			<div class="col-md-10">
-				<div class="card">
-					<div class="card-header" id="headingOne">
-					    <h2>Tous mes rapports</h2>
-					</div>
-
-				    <div class="card-body">
-			        	<div class="card">
-			        		<div class="card-body">
-                                                    <?php
-                                                        $sql="SELECT date(dateRapport)as dateCreation, idRapport,nomRapport,etatRapport,urlRapport from rapport where idService=$idService" ;
-                                                        tableRapport($cl, $sql);
-                                                     ?>
-			        		</div>
-			        	</div>
-				    </div>			
-				</div>
-					  
-						
-			</div>
-		</div>
-	</div>
+                            
+                        </div>
+                </div>
+        </div>
 </body>
 </html>

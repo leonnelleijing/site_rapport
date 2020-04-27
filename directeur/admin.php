@@ -16,17 +16,11 @@ session_start();
     <!-- Navigation et bandeau-->
         <?php
         // affihcer le nom de login
-            $url= getParamsUrl();
-            if ($url!=null) {
-                $userId= $url['id'];
-                $userNom= nomAdmin($cl,$userId);
-                Navigation($userNom);
-                $_SESSION['userId']=$userId;
-                $_SESSION['userNom']=$userNom;
-            }elseif(isset($_SESSION['userNom'])){
+            if(isset($_SESSION['userId'])){
                 $userNom=$_SESSION['userNom'];
                 $userId=$_SESSION['userId'];
-                Navigation($userNom);
+                $srcImg=$_SESSION['srcImg'];
+                Navigation($userNom,$srcImg);
             } else {
                 header("Location: ../index.html");
             }     

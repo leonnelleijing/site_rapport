@@ -11,9 +11,10 @@ $(document).ready(function() {
 	            },
 	        success: function(res){
 	        	// console.log(res);
-	        	var info=JSON.parse(res).info;
-	        	var dir=JSON.parse(res).directeur;
-	        	var id=JSON.parse(res).id;
+	        	var data =JSON.parse(res)
+	        	var info=data.info
+	        	var dir=data.directeur
+	        	var id=data.id
 	        	switch(info){
 	        		case 0:
 	        			alert('Vérifier votre connexion internet');
@@ -32,10 +33,13 @@ $(document).ready(function() {
 	        		case 3:
 	        			if(dir==0){
 	        			  // console.log(dir);
-	        			  window.location.href = './utilisateur/utilisateur.php?id='+id;
+	        			  if(data.userNom==0){
+	        			  	window.location.href = './directeur/complete_info.php';
+	        			  }
+	        			  window.location.href = './utilisateur/utilisateur.php';
 	        			}else{
 	        			  // console.log(dir);
-	        			  window.location.href = './directeur/admin.php?id='+id;
+	        			  window.location.href = './directeur/admin.php';
 	        			}	
 	        		break;
 	        	}

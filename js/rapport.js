@@ -1,3 +1,4 @@
+// Permet d'afficher le rapport voulu en cliquant dessus
 $(document).ready(function(){
 
 	var $aRapport= $('.hrefRappport');

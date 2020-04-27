@@ -20,7 +20,8 @@
                 $userNom=$_SESSION['userNom'];
                 $userId=$_SESSION['userId'];
                 $idService=$_SESSION['idService'];
-                Navigation($userNom);
+                $srcImg=$_SESSION['srcImg'];
+                Navigation($userNom,$srcImg);
             } else {
                 header("Location: ../index.html");
             } 

@@ -16,28 +16,14 @@ function head(){
 	<script type="text/javascript" src="../js/validator.js"></script>
         <script type="text/javascript" src="../js/ajax.js"></script>
         <script type="text/javascript" src="../js/rapport.js"></script>
+        <script type="text/javascript" src="../js/modal.js"></script>
 
 
         </head>';
 }
 
-function headHtml(){
-    return '<head lang="en">
-	<meta charset="utd-8">
-	<link rel="stylesheet" href="../css/bootstrap.css">
-	<link rel="stylesheet" href="../css/open-iconic-bootstrap.css">
-	<link rel="stylesheet" href="../css/custom.css">
-	<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="../js/validator.js"></script>
-        <script type="text/javascript" src="../js/ajax.js"></script>
-        <script type="text/javascript" src="../js/rapport.js"></script>
 
-
-        </head>';
-}
-
-function Navigation($nom){
+function Navigation($nom,$srcImg){
     echo'<div id="main">
 		<nav class="navbar navbar-expand-lg navbar-light">
   			<a class="navbar-brand" href="#">
@@ -55,11 +41,11 @@ function Navigation($nom){
                                 </form>
                                 <li class="nav-item">';
     echo"
-                                    <div class='nav-link mx-4'><img src='../img/personnage.png' class='img-thumbnail personnage'> $nom </div>";
+                                    <div class='nav-link mx-4'><img src='../img/$srcImg' class='img-thumbnail personnage'> $nom </div>";
     echo'
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link mx-4" href="deconnection.php">Déconnexion <span class="oi oi-power-standby"></span></a>
+                                    <a class="nav-link mx-4" href="../deconnection.php">Déconnexion <span class="oi oi-power-standby"></span></a>
                                 </li>
                             </ul>
 			</div>
@@ -86,8 +72,8 @@ function sidebarDirecteur(){
                     <li role="presentation">
                         <a href="#" data-toggle="collapse" data-target="#list3"><span class="oi oi-cog"></span>Paramètre</a>
                             <ul id="list3" class="collapse in">
-                                <li><a href="information.html"><span class="oi oi-monitor"></span>Informations</a></li>
-                                <li><a href="utilisateurs.html"><span class="oi oi-people"></span>Tous les utilisateurs</a></li>
+                                <li><a href="information.php"><span class="oi oi-monitor"></span>Informations</a></li>
+                                <li><a href="nouveau_login.php"><span class="oi oi-people"></span>Créer un login</a></li>
                             </ul>
                     </li>
 		</ul>	
@@ -136,7 +122,7 @@ function modal(){
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close fermer" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -144,7 +130,7 @@ function modal(){
                 ...
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-secondary fermer" data-dismiss="modal">Fermer</button>
               </div>
             </div>
           </div>

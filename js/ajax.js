@@ -1,4 +1,4 @@
-// Demande de créer une commande 
+// Demande de création de commande  
 $(document).ready(function() {
 
 	$('#btnRapport').click(function(){
@@ -11,14 +11,14 @@ $(document).ready(function() {
 			contentType: false,
 			data:formdata,
 			success:function(res){
-				data=JSON.parse(res)
+				var data=JSON.parse(res)
 				showModal(data)
 			}
 		})
 
 	})
 
-	//envoyer une analyse paramétrée
+	//Envoyer une analyse paramétrée
 	$('#btnR').click(function(){
 		var formdata=new FormData($('#paramAnalyse')[0])
 		var nomPU=$("select[name='CodePU'] option:selected").text()
@@ -33,8 +33,12 @@ $(document).ready(function() {
 			success:function(res){
 					
 				var resultat=JSON.parse(res).resultat;
-				console.log(resultat);
 				var length=resultat.length;
+				if(length==0){
+					var data={request:nomKPI,
+							  resultat: "Il n'y pas de données dans la base de données"}
+					showModal(data);
+				}
 				var depth=resultat[0].length;
 				var newResultat=new Array(depth-1);
 				for(i=0;i<depth;i++){
@@ -61,7 +65,7 @@ $(document).ready(function() {
 							+'<small>Synthèse</small></label>'
 							+'<textarea class="form-control" id="commentaireRapport" rows="3"></textarea>'
 						+'</div>'
-				 		+'<button class="btn btn-warning" id="btn" onclick="removeAll()">Supprimer</button><hr>'
+				 		+'<button class="btn btn-warning" id="btn" onclick="removeAll(this)">Supprimer</button><hr>'
 				  +'</div>';
 
 				$('#analyseBody').append(content);
@@ -70,9 +74,9 @@ $(document).ready(function() {
 		})	
 	})
 
-	// strcuturer des données dans un objet, ce dernier et composé par plusieurs tableaux de données, 
-	// chaque tableau est composé de 3 champs: data , synthese, idContenu
-	// Si cette analyse est ajouté tout à l'heure, son idContenu est null 
+	// Strcuturer des données dans un objet, ce dernier est composé de plusieurs tableaux de données,
+	// Chaque tableau est composé de 3 champs: data , synthese, idContenu
+	// Si cette analyse est ajoutée après, son idContenu est null  
 	$('#soumettre').click(function(){
 		function stucture(data, synthese,idContenu,nomContenu){
 			this['data']=data
@@ -104,14 +108,13 @@ $(document).ready(function() {
 			},
 			dataType: "json",
 			success:function(res){
-				console.log(res)
 				showModal(res)
 			}
 		})
 		
 	})
 
-	//Une fois validé
+	//Une fois validé,
 	//Envoyer le contenu avec des css java/script link dans un fichier html
 	$('#validerAnalyse').click(function(){
 		String.prototype.sansAccents = function() {
@@ -147,21 +150,58 @@ $(document).ready(function() {
 	})
 
 
+	// créer un nouveua login
+	$("#creerLogin").click(function(){
+		var formdata=new FormData($("#newLogin")[0])
+		$.ajax({
+			type: 'post',
+			url:'creer_login.php',
+			data:formdata,
+			processData: false,
+			contentType: false,
+			success:function(res){
+				var data=JSON.parse(res)
+				if(data.fail==1){
+					showModal(data)
+				}else{
+					var mail=data.resultat.mail
+					var mdp=data.resultat.mdp
+					var html="<form action='mailto:"+mail+"'>"
+							+"<h3>"
+							+"Nouveau Login :"
+							+"</h3>"
+							+"<p>Mail:"+mail+"</p>"
+							+"<p>Mot de passe:"+mdp+"</p>"
+							+"<button type='submit' class='btn btn-info'>Envoyer</button>"
+							+"</form>"
+					$("#Modal h5").text(data.request)
+					$("#Modal .modal-body").empty()
+										   .append(html)
+					$('#Modal').modal('show');
+				}
+			}
+
+		})
+	})
+
+
+
 	function showModal(data){
 		// var data= JSON.parse(res)
-		$("#Modal h5").text(data.request);
-		$("#Modal .modal-body").text(data.resultat);
-		$('#Modal').modal('show');
+		$("#Modal h5").text(data.request)
+		$("#Modal .modal-body").text(data.resultat)
+		$('#Modal').modal('show')
 	}
 
 })
 
-// Fonction de supprimer une analyse
-// 1. Vérifier s'il exist déjà dans la base de donnée par le id de son parent 
-// 2. Si exisite, envoyer une demande d'ajax pour supprimer cette annalyse 
+// Fonction pour supprimer une analyse
+// 1. Vérifier s'il existe déjà dans la base de données par le id de son parent 
+// 2. S'il existe, envoyer une demande d'ajax pour supprimer cette annalyse 
 
-	function removeAll(btn){
-		var btn=$(btn)
+	function removeAll(eve){
+		var btn=$(eve)
+		console.log(btn.text())
 		if(confirm("Vous allez supprimer cette partie")){
 			var idContenu=btn.parent().attr('id')
 			// console.log(btn.parent)

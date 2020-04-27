@@ -19,7 +19,8 @@
             if(isset($_SESSION['userNom'])){
                 $userNom=$_SESSION['userNom'];
                 $userId=$_SESSION['userId'];
-                Navigation($userNom);
+                $srcImg=$_SESSION['srcImg'];
+                Navigation($userNom,$srcImg);
             } else {
                 header("Location: ../index.html");
             } 

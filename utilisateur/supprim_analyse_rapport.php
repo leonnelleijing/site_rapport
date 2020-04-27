@@ -1,6 +1,9 @@
 <?php
 require_once '../functions.php';
 session_start();
+if(!isset($_SESSION['userNom'])){
+    header("Location: ../index.html");
+}
 $cl=connectLogin();
 $idContenu=$_POST['idContenu'];
 

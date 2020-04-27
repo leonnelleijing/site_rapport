@@ -12,15 +12,16 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/wamp64/www/siteweb/directeur/historique.php</file>
-            <file>file:/D:/wamp64/www/siteweb/nouvelle_historique.php</file>
+            <file>file:/D:/wamp64/www/siteweb/utilisateur/tous_rapports.php</file>
+            <file>file:/D:/wamp64/www/siteweb/directeur/tous_rapports.php</file>
+            <file>file:/D:/wamp64/www/siteweb/js/rapport.js</file>
             <file>file:/D:/wamp64/www/siteweb/index.html</file>
-            <file>file:/D:/wamp64/www/siteweb/directeur/rapport.php</file>
-            <file>file:/D:/wamp64/www/siteweb/utilisateur/rapport.php</file>
-            <file>file:/D:/wamp64/www/siteweb/utilisateur/mettre_analyse_rapport.php</file>
-            <file>file:/D:/wamp64/www/siteweb/utilisateur/analyse_rapport.php</file>
-            <file>file:/D:/wamp64/www/siteweb/directeur/creer_rapport.php</file>
-            <file>file:/D:/wamp64/www/siteweb/directeur/admin.php</file>
+            <file>file:/D:/wamp64/www/siteweb/js/ajax.js</file>
+            <file>file:/D:/wamp64/www/siteweb/functions.php</file>
+            <file>file:/D:/wamp64/www/siteweb/directeur/creer_login.php</file>
+            <file>file:/D:/wamp64/www/siteweb/directeur/nouveau_login.php</file>
+            <file>file:/D:/wamp64/www/siteweb/utilisateur/utilisateur.php</file>
+            <file>file:/D:/wamp64/www/siteweb/utilisateur/information.php</file>
         </group>
     </open-files>
 </project-private>

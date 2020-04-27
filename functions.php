@@ -1,14 +1,14 @@
 <?php
+
 // definition des constantes de connexion
-define ("host", "localhost");//nom de serveur 
-define ("uid","root");//id
-define ("pwd","");//mdp
-define ("dbLA","lagardere_active");
-define ("dbSW","site_web");
+define("host", "localhost"); //nom de serveur 
+define("uid", "root"); //id
+define("pwd", ""); //mdp
+define("dbLA", "lagardere_active");
+define("dbSW", "site_web");
 
-
-function connecter($dbname){
-    $connec= mysqli_connect(host,uid,pwd);
+function connecter($dbname) {
+    $connec = mysqli_connect(host, uid, pwd);
     if ($connec == NULL) {
         die("Erreur connexion à MySQL/Maria DB : " . mysqli_connect_error());
     } else { // connexion réussie
@@ -22,39 +22,43 @@ function connecter($dbname){
             return $connec;
         }
     }
-
 }
+
 // connecter à la base de donner "lagardere_active"
-function connectAnalyse(){
+function connectAnalyse() {
     return connecter(dbLA);
 }
 
 // connecter à la base de donner "site_web"
-function connectLogin(){
+function connectLogin() {
     return connecter(dbSW);
 }
 
 //afficher le nom d'un directeur avec un id donnée
-function nomAdmin($cl,$id){
-    $query="SELECT nomDirecteur FROM directeur WHERE idDirecteur=$id ";
-    $result=mysqli_query($cl,$query);
-    $row= mysqli_fetch_array($result);
+function nomAdmin($cl, $id) {
+    $query = "SELECT nomDirecteur FROM directeur WHERE idDirecteur=$id ";
+    $result = mysqli_query($cl, $query);
+    $row = mysqli_fetch_array($result);
     return $row['nomDirecteur'];
 }
 
 //afficher le nom d'un employee avec un id donnée
-function nomEm($cl,$id){
-    $query="SELECT nomEm FROM employee WHERE idEm=$id ";
-    $result=mysqli_query($cl,$query);
-    $row= mysqli_fetch_array($result);
-    return $row['nomEm'];
+function nomEm($cl, $id) {
+    $query = "SELECT nomEm FROM employee WHERE idEm=$id ";
+    $result = mysqli_query($cl, $query);
+    if (!$result) {
+        return false;
+    } else {
+        $row = mysqli_fetch_array($result);
+        return $row['nomEm'];
+    }
 }
 
 //determiner si une personne est directeur 
-function isDirecteur ($cl,$userId){
-    $sql="SELECT idDirecteur FROM login WHERE userId=$userId";
-    $row= sqlSelect($cl, $sql);
-    if($row[0][0]==null){
+function isDirecteur($cl, $userId) {
+    $sql = "SELECT idDirecteur FROM login WHERE userId=$userId";
+    $row = sqlSelect($cl, $sql);
+    if ($row[0][0] == null) {
         return false;
     } else {
         return true;
@@ -62,20 +66,20 @@ function isDirecteur ($cl,$userId){
 }
 
 //source d'image d'un emloyer
-function srcImg($cl, $idUser,$type){
-    if($type){
-        $sql="SELECT imgDirecteur FROM directeur WHERE idDirecteur=$idUser";
-        $row= sqlSelect($cl, $sql);
+function srcImg($cl, $idUser, $type) {
+    if ($type) {
+        $sql = "SELECT imgDirecteur FROM directeur WHERE idDirecteur=$idUser";
+        $row = sqlSelect($cl, $sql);
         return $row[0][0];
-    }else{
-        $sql="SELECT imgEm FROM employee WHERE idEm=$idUser";
-        $row= sqlSelect($cl, $sql);
+    } else {
+        $sql = "SELECT imgEm FROM employee WHERE idEm=$idUser";
+        $row = sqlSelect($cl, $sql);
         return $row[0][0];
     }
 }
 
 //afficher un tableau conteannt des informations sur des rapports
-function tableRapport($cl,$sql){
+function tableRapport($cl, $sql) {
     echo'<table class="table table-hover">
             <thead class="thead-light">
                 <tr>
@@ -87,29 +91,27 @@ function tableRapport($cl,$sql){
                 </tr>
             </thead>
             <tbody>';
-     $result= sqlSelect($cl, $sql);
+    $result = sqlSelect($cl, $sql);
     foreach ($result as $row) {
-        echo "<tr>".
-             "<th scope='row'>".$row[0]."</th>".
-             "<td class='idRapport'>".$row[1]."</td>".
-             "<td class='nomRapport'>".$row[2]."</td>".
-             "<td>".$row[3]."</td>";
-        if($row[4]==null){
-            echo "<td><a href='rapport.php' class='hrefRappport'>"."..."."</a></td>".
-                 "</tr>";
-        }else{
-            $href='../rapport_valide/'.$row[4];
-            echo "<td><a href='$href'>"."..."."</a></td>";
+        echo "<tr>" .
+        "<th scope='row'>" . $row[0] . "</th>" .
+        "<td class='idRapport'>" . $row[1] . "</td>" .
+        "<td class='nomRapport'>" . $row[2] . "</td>" .
+        "<td>" . $row[3] . "</td>";
+        if ($row[4] == null) {
+            echo "<td><a href='rapport.php' class='hrefRappport'>" . "..." . "</a></td>" .
+            "</tr>";
+        } else {
+            $href = '../rapport_valide/' . $row[4];
+            echo "<td><a href='$href'>" . "..." . "</a></td>";
         }
     }
-    echo    '</tbody>
+    echo '</tbody>
         </table>';
 }
 
-
-
 //afficher un tableau contenant des informations sur des rapports
-function tableRapportAdmin($cl,$sql,$title){
+function tableRapportAdmin($cl, $sql, $title) {
     echo '<div class="card">
             <div class="card-body">';
     echo "<h3 class='card-title'>$title</h3>";
@@ -125,41 +127,50 @@ function tableRapportAdmin($cl,$sql,$title){
                 </tr>
             </thead>
             <tbody>';
-    $result= sqlSelect($cl, $sql);
+    $result = sqlSelect($cl, $sql);
     foreach ($result as $row) {
-        echo "<tr>".
-             "<th scope='row'>".$row[0]."</th>".
-             "<td>".$row[1]."</td>".
-             "<td  class='idRapport'>".$row[2]."</td>".
-             "<td class='nomRapport'>".$row[3]."</td>".
-             "<td>".$row[4]."</td>".
-             "<td><a href='rapport.php' class='hrefRappport'>...</a></td>".
-             "</tr>";
-    }  
-    echo    '</tbody>
+        echo "<tr>" .
+        "<th scope='row'>" . $row[0] . "</th>" .
+        "<td>" . $row[1] . "</td>" .
+        "<td  class='idRapport'>" . $row[2] . "</td>" .
+        "<td class='nomRapport'>" . $row[3] . "</td>" .
+        "<td>" . $row[4] . "</td>" .
+        "<td><a href='rapport.php' class='hrefRappport'>...</a></td>" .
+        "</tr>";
+    }
+    echo '</tbody>
         </table>
        </div>
      </div>';
 }
 
-
-
 // function sql select des donnés 
-function sqlSelect($cl,$sql){
-    $result= mysqli_query($cl, $sql);
-    if($result==false){
+function sqlSelect($cl, $sql) {
+    $result = mysqli_query($cl, $sql);
+    if ($result == false) {
         die("Erreur sélection statuts : " . mysqli_error($cl));
     }
-    $final=array();
-    while($row= mysqli_fetch_row($result)){
-        array_push($final,$row);
+    $final = array();
+    while ($row = mysqli_fetch_row($result)) {
+        array_push($final, $row);
     }
-    return $final;   
+    return $final;
 }
 
-function getParamsUrl(){
-     $query_str = $_SERVER['QUERY_STRING'];
-     parse_str($query_str);
-     parse_str($query_str, $query_arr);
-     return $query_arr;
+function getParamsUrl() {
+    $query_str = $_SERVER['QUERY_STRING'];
+    parse_str($query_str);
+    parse_str($query_str, $query_arr);
+    return $query_arr;
+}
+
+function SixRandomChiffre() {
+    $arr = array_merge(range('A', 'Z'), range('a', 'z'), range(0, 9));
+    shuffle($arr);
+    $arr2 = array_rand($arr, 6);
+    $random = '';
+    foreach ($arr2 as $index) {
+        $random .= $arr[$index];
+    }
+    return $random;
 }
