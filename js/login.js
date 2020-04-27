@@ -1,4 +1,5 @@
-$(document).ready(function() {
+// Ce code permet de prévenir l'utilisateur s'il s'est trompé lors de l'envoi du formulaire dans son mail ou mot de passe
+$(document).ready(function () {
 		$('#log').click(function(){
 		var email=$('#email').val();
 		var mdp=$('#mdp').val();
