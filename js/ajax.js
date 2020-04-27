@@ -1,4 +1,4 @@
-// Demande de créer une commande 
+// Demande de création de commande 
 $(document).ready(function() {
 
 	$('#btnRapport').click(function(){
@@ -18,7 +18,7 @@ $(document).ready(function() {
 
 	})
 
-	//envoyer une analyse paramétrée
+	//Envoyer une analyse paramétrée
 	$('#btnR').click(function(){
 		var formdata=new FormData($('#paramAnalyse')[0])
 		var nomPU=$("select[name='CodePU'] option:selected").text()
@@ -70,9 +70,9 @@ $(document).ready(function() {
 		})	
 	})
 
-	// strcuturer des données dans un objet, ce dernier et composé par plusieurs tableaux de données, 
+	// Strcuturer des données dans un objet, ce dernier est composé de plusieurs tableaux de données, 
 	// chaque tableau est composé de 3 champs: data , synthese, idContenu
-	// Si cette analyse est ajouté tout à l'heure, son idContenu est null 
+	// Si cette analyse est ajoutée après, son idContenu est null 
 	$('#soumettre').click(function(){
 		function stucture(data, synthese,idContenu,nomContenu){
 			this['data']=data
@@ -111,7 +111,7 @@ $(document).ready(function() {
 		
 	})
 
-	//Une fois validé
+	//Une fois validé,
 	//Envoyer le contenu avec des css java/script link dans un fichier html
 	$('#validerAnalyse').click(function(){
 		String.prototype.sansAccents = function() {
@@ -156,9 +156,9 @@ $(document).ready(function() {
 
 })
 
-// Fonction de supprimer une analyse
-// 1. Vérifier s'il exist déjà dans la base de donnée par le id de son parent 
-// 2. Si exisite, envoyer une demande d'ajax pour supprimer cette annalyse 
+// Fonction pour supprimer une analyse
+// 1. Vérifier s'il existe déjà dans la base de données par le id de son parent 
+// 2. S'il existe, envoyer une demande d'ajax pour supprimer cette annalyse 
 
 	function removeAll(btn){
 		var btn=$(btn)

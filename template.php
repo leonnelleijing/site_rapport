@@ -1,12 +1,12 @@
 <?php
 
 /* 
-ce fichier est pour rÃ©aliser des fonction d'affichage des sections de html 
+Ce fichier permet d'afficher les sections HHTML récurrentes 
  */
 
 
 function head(){
-    echo '<head lang="en">
+?>      <head lang="en">
 	<meta charset="utd-8">
 	<link rel="stylesheet" href="../css/bootstrap.css">
 	<link rel="stylesheet" href="../css/open-iconic-bootstrap.css">
@@ -17,12 +17,12 @@ function head(){
         <script type="text/javascript" src="../js/ajax.js"></script>
         <script type="text/javascript" src="../js/rapport.js"></script>
 
-
-        </head>';
+        </head>
+<?php
 }
 
 function headHtml(){
-    return '<head lang="en">
+?>      <head lang="en">
 	<meta charset="utd-8">
 	<link rel="stylesheet" href="../css/bootstrap.css">
 	<link rel="stylesheet" href="../css/open-iconic-bootstrap.css">
@@ -33,12 +33,12 @@ function headHtml(){
         <script type="text/javascript" src="../js/ajax.js"></script>
         <script type="text/javascript" src="../js/rapport.js"></script>
 
-
-        </head>';
+        </head>
+<?php
 }
 
 function Navigation($nom){
-    echo'<div id="main">
+?>      <div id="main">
 		<nav class="navbar navbar-expand-lg navbar-light">
   			<a class="navbar-brand" href="#">
     			<img src="../img/lagardere_active_logo.jpg" width="180" height="30" class="d-inline-block align-top" alt="">
@@ -53,23 +53,23 @@ function Navigation($nom){
                                         <input class="form-control mr-sm-2" type="search" placeholder="Chercher un rapport..." aria-label="Search">
                                         <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Chercher</button>
                                 </form>
-                                <li class="nav-item">';
-    echo"
-                                    <div class='nav-link mx-4'><img src='../img/personnage.png' class='img-thumbnail personnage'> $nom </div>";
-    echo'
+                                <li class="nav-item">
+
+                                    <div class='nav-link mx-4'><img src='../img/personnage.png' class='img-thumbnail personnage'> <?php $nom ?> </div>";
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link mx-4" href="deconnection.php">DÃ©connexion <span class="oi oi-power-standby"></span></a>
+                                    <a class="nav-link mx-4" href="deconnection.php">Déconnexion <span class="oi oi-power-standby"></span></a>
                                 </li>
                             </ul>
 			</div>
 		</nav>	
-        </div>';
+        </div>
+<?php
 }
 
 
 function sidebarDirecteur(){
-    echo '<div class="col-md-2 bg-dark" id="sidebar">
+?>      <div class="col-md-2 bg-dark" id="sidebar">
                 <ul class="navbar-nav navbar-dark">
                     <li role="presentation" class="active">
 		        <a href="admin.php" class="active"><span class="oi oi-dashboard"></span>Table de bord</a><span class="badge badge-danger mx-1">4</span>
@@ -91,11 +91,13 @@ function sidebarDirecteur(){
                             </ul>
                     </li>
 		</ul>	
-        </div>';
+        </div>
+<?php
 }
 
 function sidebarUtilisateur() {
-    echo '<!-- Sidebar -->
+?>
+        <!-- Sidebar -->
 			<div class="col-md-2 bg-dark" id="sidebar">
                             <ul class="navbar-nav navbar-dark">
                                 <li role="presentation" class="active">
@@ -108,18 +110,19 @@ function sidebarUtilisateur() {
                                     <a href="information.php"><span class="oi oi-monitor"></span>Informations</a></li>
                                 </li>
                             </ul>	
-			</div>';
+			</div>
+<?php
 }
 
 
 function commentaire(){
-    echo '<div class="form-envoie-msg my-4">
+?>      <div class="form-envoie-msg my-4">
             <form method="post" action="../nouvelle_historique.php">
                 <div class="row">
                     <div class="col-8 offset-2">
                         <input name="commentaire" class="form-control" required>
                         <div class="invalid-feedback">
-                        Le message ne peut pas Ãªtre null
+                        Le message est vide !
                         </div>
                     </div>
                     <div class="col-2">
@@ -127,11 +130,12 @@ function commentaire(){
                     </div>
                 </div>
             </form>
-        </div>';
+        </div>
+<?php
 }
 
 function modal(){
-    echo '<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+?>      <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -148,5 +152,7 @@ function modal(){
               </div>
             </div>
           </div>
-        </div>';
+        </div>
+<?php
 }
+?>
