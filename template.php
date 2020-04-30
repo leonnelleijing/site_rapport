@@ -1,7 +1,7 @@
 <?php
 
 /* 
-Ce fichier permet d'afficher les sections HHTML récurrentes 
+Ce fichier permet d'afficher les sections HHTML rï¿½currentes 
  */
 
 
@@ -58,7 +58,7 @@ function Navigation($nom){
                                     <div class='nav-link mx-4'><img src='../img/personnage.png' class='img-thumbnail personnage'> <?php $nom ?> </div>";
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link mx-4" href="deconnection.php">Déconnexion <span class="oi oi-power-standby"></span></a>
+                                    <a class="nav-link mx-4" href="deconnection.php">DÃ©connexion <span class="oi oi-power-standby"></span></a>
                                 </li>
                             </ul>
 			</div>

@@ -1,7 +1,7 @@
 <?php
 
 /*
-   obtenir d'abord id de KPI et le code de publication que l'on voudrais analyser 
+   obtenir d'abord id de KPI et le code de publication que l'on voudrait analyser 
    chercher des données dans la base de données de Lagardère_active 
    retourner des donnnées avec un format json 
  */
@@ -15,7 +15,7 @@ $sql="SELECT sqlKPI,contrainteKPI FROM kpi where idKPI=$idKPI";
 $result = sqlSelect($cl, $sql);
 $row=$result[0];
 
-// si codePU est null, ca veut dire que l'utilisateur n'a pas mis de contriante sur le code d'une publcation 
+// si codePU est null, ca veut dire que l'utilisateur n'a pas mis de contrainte sur le code d'une publcation 
 if($CodePu=='null'){
   $newSql=$row[0]; 
 } else {

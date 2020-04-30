@@ -144,7 +144,7 @@ function tableRapportAdmin($cl,$sql,$title){
 
 
 
-// function sql select des donnés 
+// Va chercher dans la table si la donnée existe
 function sqlSelect($cl,$sql){
     $result= mysqli_query($cl, $sql);
     if($result==false){
